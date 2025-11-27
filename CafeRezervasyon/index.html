@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayse Cafe Rezervasyon</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">AYSE CAFE</div>
+        <button id="admin-btn" onclick="app.toggleAdmin()">Yönetici Girişi</button>
+    </nav>
+
+    <main id="booking-wizard">
+        
+        <div class="step active" id="step-1">
+            <h2>Ne zaman gelmek istersiniz?</h2>
+            <div class="input-group">
+                <label>Tarih Seçin</label>
+                <input type="date" id="date-input">
+            </div>
+            <div class="input-group">
+                <label>Kişi Sayısı</label>
+                <select id="pax-input">
+                    <option value="1">1 Kişi</option>
+                    <option value="2" selected>2 Kişi</option>
+                    <option value="3">3 Kişi</option>
+                    <option value="4">4 Kişi</option>
+                    <option value="5+">5+ Kişi</option>
+                </select>
+            </div>
+            <button class="btn-primary" onclick="app.goToStep(2)">Müsaitlik Ara</button>
+        </div>
+
+        <div class="step" id="step-2">
+            <h2>Saat Seçimi</h2>
+            <div id="time-slots" class="slots-container">
+                </div>
+            <div class="nav-btns">
+                <button class="btn-secondary" onclick="app.goToStep(1)">Geri</button>
+            </div>
+        </div>
+
+        <div class="step" id="step-3">
+            <h2>Misafir Bilgileri</h2>
+            <input type="text" id="name" placeholder="Adınız Soyadınız">
+            <input type="tel" id="phone" placeholder="Telefon Numaranız">
+            <input type="email" id="email" placeholder="E-posta Adresiniz">
+            <textarea id="notes" placeholder="Özel notunuz var mı?"></textarea>
+            
+            <div class="summary">
+                <h3>Özet</h3>
+                <p id="summary-text">...</p>
+            </div>
+
+            <div class="nav-btns">
+                <button class="btn-secondary" onclick="app.goToStep(2)">Geri</button>
+                <button class="btn-primary" onclick="app.completeBooking()">Rezervasyonu Tamamla</button>
+            </div>
+        </div>
+
+        <div class="step" id="step-success">
+            <div class="success-icon">✓</div>
+            <h2>Teşekkürler!</h2>
+            <p>Rezervasyonunuz alınmıştır. Onay mesajı gönderilecektir.</p>
+            <button class="btn-text" onclick="location.reload()">Yeni Rezervasyon</button>
+        </div>
+    </main>
+
+    <section id="admin-panel" class="hidden">
+        <div class="admin-header">
+            <h2>Rezervasyon Yönetimi</h2>
+            <button onclick="app.toggleAdmin()" class="close-btn">X</button>
+        </div>
+        <table id="reservation-table">
+            <thead>
+                <tr>
+                    <th>Tarih</th>
+                    <th>Saat</th>
+                    <th>İsim</th>
+                    <th>Kişi</th>
+                    <th>Durum</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody id="admin-tbody">
+                </tbody>
+        </table>
+    </section>
+
+    <script src="main.js"></script>
+</body>
+</html>
